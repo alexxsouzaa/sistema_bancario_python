@@ -8,6 +8,7 @@ def menu():
     print('=' * 74)
 
 def deposito():
+    global saldo
     print(' DEPOSITO '.center(74, '-'))
     print('[1] Deposita na minha conta\n[2] Deposita em outra conta')
     opcao_deposito = int(input('\nDigite a opção desejada: '))
@@ -34,7 +35,7 @@ def deposito():
         print('\nDADOS DE DEPOSITO')
         print('')
         print(f'SALDO: {saldo}')
-        agencia_deposito = int(input('\nAgencia: '))
+        agencia_deposito = int(input('\nAgencia: '))        
         conta_deposito = int(input('Conta: '))
         valor_deposito = float(input('Valor do deposito: '))
         saldo = saldo - valor_deposito
@@ -67,18 +68,19 @@ def saque():
     print(f'Valor do saque: {valor_saque}')
     print(f'Saldo atual: {saldo}')
     print('-' * 74)
-    
            
 def saldo():
     global saldo
     print(' SALDO '.center(74, '-'))
-    print(f'Saldo atual: {saldo}')
-
+    print(saldo)
 
 if __name__=='__main__':
     
     saldo = 1000.00
     resposta = 'S'
+    sessao = True
+    agencia_conta = [1, 2, 3, 4, 5]
+    conta_conta = [1, 2, 3, 4, 5]
     
     print('\n')
     print(' Seja Bem-Vindo(a) ao Banco DevCred '.center(74, '#'))
@@ -89,18 +91,29 @@ if __name__=='__main__':
     print('#' * 74)
 
 
-    if (agencia == 1) and (conta == 1):
-        menu()
-        if opcao == 1:
-            while resposta == 'S':
-                deposito()
-                print('\nDeseja realiza outro saque?')
-                resposta = input('Digite \'S\' para continua e \'N\' para sair: ').upper()
-                print('-' * 74)
+    if (agencia in agencia_conta) and (conta in conta_conta):
+        while sessao:
             menu()
-        elif opcao == 2:
-            saque()
-        elif opcao == 3:
-            saldo()
+            if opcao == 1:
+                while resposta == 'S':
+                    deposito()
+                    print('\nDeseja realiza outro deposito?')
+                    resposta = input('Digite \'S\' para continua e \'N\' para sair: ').upper()
+                    print('-' * 74)
+            elif opcao == 2:
+                while resposta == 'S':
+                    saque()
+                    print('\nDeseja realiza outro saque?')
+                    resposta = input('Digite \'S\' para continua e \'N\' para sair: ').upper()
+            elif opcao == 3:
+                while resposta == 'S':
+                    saldo()
+                    print('\nDeseja consultar o saldo novamente?')
+                    resposta = input('Digite \'S\' para continua e \'N\' para sair: ').upper()
+            elif opcao == 4:
+                sessao = False
+                print(' SESSÃO FINALIZA '.center(74, "#"))
+                print('')
+                print(' Obrigada(o) por se nosso(a) cliente!' .center(74, "💗"))
     else:
         print('Agência e conta invalidas!')
